@@ -1,0 +1,1279 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/Siteswithpastmineralactivity_1.js"></script>
+        <script src="data/MeatMarketCaseStudySite_2.js"></script>
+        <script src="data/ProposedGreencorridors_3.js"></script>
+        <script src="data/LocalAuthorityBoundaries_4.js"></script>
+        <script src="data/Sitesunderpublicownership_5.js"></script>
+        <script src="data/Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6.js"></script>
+        <script src="data/AllVacantandDerelictSites_7.js"></script>
+        <script src="data/VacantLandandBuildings_8.js"></script>
+        <script src="data/DerelictLand_9.js"></script>
+        <script src="data/VacantLand_10.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+
+            if (e.target.feature.geometry.type === 'LineString') {
+              highlightLayer.setStyle({
+                color: '#ffff00',
+              });
+            } else {
+              highlightLayer.setStyle({
+                fillColor: '#ffff00',
+                fillOpacity: 1
+              });
+            }
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[54.3784127906845,-8.497869540211184],[58.342387085728156,1.1227397133950303]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_OSMStandard_0');
+        map.getPane('pane_OSMStandard_0').style.zIndex = 400;
+        var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_OSMStandard_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OSMStandard_0;
+        map.addLayer(layer_OSMStandard_0);
+        function pop_Siteswithpastmineralactivity_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Siteswithpastmineralactivity_1_0() {
+            return {
+                pane: 'pane_Siteswithpastmineralactivity_1',
+                opacity: 1,
+                color: 'rgba(217,1,255,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 6.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Siteswithpastmineralactivity_1');
+        map.getPane('pane_Siteswithpastmineralactivity_1').style.zIndex = 401;
+        map.getPane('pane_Siteswithpastmineralactivity_1').style['mix-blend-mode'] = 'normal';
+        var layer_Siteswithpastmineralactivity_1 = new L.geoJson(json_Siteswithpastmineralactivity_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Siteswithpastmineralactivity_1',
+            layerName: 'layer_Siteswithpastmineralactivity_1',
+            pane: 'pane_Siteswithpastmineralactivity_1',
+            onEachFeature: pop_Siteswithpastmineralactivity_1,
+            style: style_Siteswithpastmineralactivity_1_0,
+        });
+        bounds_group.addLayer(layer_Siteswithpastmineralactivity_1);
+        map.addLayer(layer_Siteswithpastmineralactivity_1);
+        function pop_MeatMarketCaseStudySite_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_MeatMarketCaseStudySite_2_0() {
+            return {
+                pane: 'pane_MeatMarketCaseStudySite_2',
+                opacity: 1,
+                color: 'rgba(219,30,42,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 5.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_MeatMarketCaseStudySite_2');
+        map.getPane('pane_MeatMarketCaseStudySite_2').style.zIndex = 402;
+        map.getPane('pane_MeatMarketCaseStudySite_2').style['mix-blend-mode'] = 'normal';
+        var layer_MeatMarketCaseStudySite_2 = new L.geoJson(json_MeatMarketCaseStudySite_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_MeatMarketCaseStudySite_2',
+            layerName: 'layer_MeatMarketCaseStudySite_2',
+            pane: 'pane_MeatMarketCaseStudySite_2',
+            onEachFeature: pop_MeatMarketCaseStudySite_2,
+            style: style_MeatMarketCaseStudySite_2_0,
+        });
+        bounds_group.addLayer(layer_MeatMarketCaseStudySite_2);
+        map.addLayer(layer_MeatMarketCaseStudySite_2);
+        function pop_ProposedGreencorridors_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ProposedGreencorridors_3_0() {
+            return {
+                pane: 'pane_ProposedGreencorridors_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(148,209,128,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_ProposedGreencorridors_3');
+        map.getPane('pane_ProposedGreencorridors_3').style.zIndex = 403;
+        map.getPane('pane_ProposedGreencorridors_3').style['mix-blend-mode'] = 'normal';
+        var layer_ProposedGreencorridors_3 = new L.geoJson(json_ProposedGreencorridors_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ProposedGreencorridors_3',
+            layerName: 'layer_ProposedGreencorridors_3',
+            pane: 'pane_ProposedGreencorridors_3',
+            onEachFeature: pop_ProposedGreencorridors_3,
+            style: style_ProposedGreencorridors_3_0,
+        });
+        bounds_group.addLayer(layer_ProposedGreencorridors_3);
+        map.addLayer(layer_ProposedGreencorridors_3);
+        function pop_LocalAuthorityBoundaries_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ons_code'] !== null ? autolinker.link(feature.properties['ons_code'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name'] !== null ? autolinker.link(feature.properties['name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['label'] !== null ? autolinker.link(feature.properties['label'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_LocalAuthorityBoundaries_4_0() {
+            return {
+                pane: 'pane_LocalAuthorityBoundaries_4',
+                opacity: 1,
+                color: 'rgba(82,82,82,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(204,204,204,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_LocalAuthorityBoundaries_4');
+        map.getPane('pane_LocalAuthorityBoundaries_4').style.zIndex = 404;
+        map.getPane('pane_LocalAuthorityBoundaries_4').style['mix-blend-mode'] = 'normal';
+        var layer_LocalAuthorityBoundaries_4 = new L.geoJson(json_LocalAuthorityBoundaries_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_LocalAuthorityBoundaries_4',
+            layerName: 'layer_LocalAuthorityBoundaries_4',
+            pane: 'pane_LocalAuthorityBoundaries_4',
+            onEachFeature: pop_LocalAuthorityBoundaries_4,
+            style: style_LocalAuthorityBoundaries_4_0,
+        });
+        bounds_group.addLayer(layer_LocalAuthorityBoundaries_4);
+        map.addLayer(layer_LocalAuthorityBoundaries_4);
+        function pop_Sitesunderpublicownership_5(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Local Authority'] !== null ? autolinker.link(feature.properties['Local Authority'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site Code'] !== null ? autolinker.link(feature.properties['Site Code'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site Name (If Supplied)'] !== null ? autolinker.link(feature.properties['Site Name (If Supplied)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Address (If Supplied)'] !== null ? autolinker.link(feature.properties['Address (If Supplied)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['East'] !== null ? autolinker.link(feature.properties['East'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['North'] !== null ? autolinker.link(feature.properties['North'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site Size (Hectares)'] !== null ? autolinker.link(feature.properties['Site Size (Hectares)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site Type'] !== null ? autolinker.link(feature.properties['Site Type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Location of Site'] !== null ? autolinker.link(feature.properties['Location of Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Owner 1'] !== null ? autolinker.link(feature.properties['Owner 1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Owner 2'] !== null ? autolinker.link(feature.properties['Owner 2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Period when site became Vacant or Derelict'] !== null ? autolinker.link(feature.properties['Period when site became Vacant or Derelict'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Previous Use of Site'] !== null ? autolinker.link(feature.properties['Previous Use of Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Development Potential'] !== null ? autolinker.link(feature.properties['Development Potential'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Datazone'] !== null ? autolinker.link(feature.properties['Datazone'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Sitesunderpublicownership_5_0(feature) {
+            if (feature.properties['Site Size (Hectares)'] >= 0.100000 && feature.properties['Site Size (Hectares)'] <= 1.000000 ) {
+                return {
+                pane: 'pane_Sitesunderpublicownership_5',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(179,92,21,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(247,128,30,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 1.000000 && feature.properties['Site Size (Hectares)'] <= 5.000000 ) {
+                return {
+                pane: 'pane_Sitesunderpublicownership_5',
+                radius: 5.5,
+                opacity: 1,
+                color: 'rgba(179,92,21,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(247,128,30,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 5.000000 && feature.properties['Site Size (Hectares)'] <= 10.000000 ) {
+                return {
+                pane: 'pane_Sitesunderpublicownership_5',
+                radius: 9.0,
+                opacity: 1,
+                color: 'rgba(179,92,21,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(247,128,30,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 10.000000 && feature.properties['Site Size (Hectares)'] <= 30.000000 ) {
+                return {
+                pane: 'pane_Sitesunderpublicownership_5',
+                radius: 12.5,
+                opacity: 1,
+                color: 'rgba(179,92,21,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(247,128,30,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 30.000000 && feature.properties['Site Size (Hectares)'] <= 78.510000 ) {
+                return {
+                pane: 'pane_Sitesunderpublicownership_5',
+                radius: 16.0,
+                opacity: 1,
+                color: 'rgba(179,92,21,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(247,128,30,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_Sitesunderpublicownership_5');
+        map.getPane('pane_Sitesunderpublicownership_5').style.zIndex = 405;
+        map.getPane('pane_Sitesunderpublicownership_5').style['mix-blend-mode'] = 'normal';
+        var layer_Sitesunderpublicownership_5 = new L.geoJson(json_Sitesunderpublicownership_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Sitesunderpublicownership_5',
+            layerName: 'layer_Sitesunderpublicownership_5',
+            pane: 'pane_Sitesunderpublicownership_5',
+            onEachFeature: pop_Sitesunderpublicownership_5,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Sitesunderpublicownership_5_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Sitesunderpublicownership_5);
+        map.addLayer(layer_Sitesunderpublicownership_5);
+        function pop_Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['d'] !== null ? autolinker.link(feature.properties['d'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site Code'] !== null ? autolinker.link(feature.properties['Site Code'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site Name (If Supplied)'] !== null ? autolinker.link(feature.properties['Site Name (If Supplied)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Address (If Supplied)'] !== null ? autolinker.link(feature.properties['Address (If Supplied)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['East'] !== null ? autolinker.link(feature.properties['East'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['North'] !== null ? autolinker.link(feature.properties['North'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site Size (Hectares)'] !== null ? autolinker.link(feature.properties['Site Size (Hectares)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site Type'] !== null ? autolinker.link(feature.properties['Site Type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Location of Site'] !== null ? autolinker.link(feature.properties['Location of Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Owner 1'] !== null ? autolinker.link(feature.properties['Owner 1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Owner 2'] !== null ? autolinker.link(feature.properties['Owner 2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Period when site became Vacant or Derelict'] !== null ? autolinker.link(feature.properties['Period when site became Vacant or Derelict'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Previous Use of Site'] !== null ? autolinker.link(feature.properties['Previous Use of Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Development Potential'] !== null ? autolinker.link(feature.properties['Development Potential'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Datazone'] !== null ? autolinker.link(feature.properties['Datazone'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6_0(feature) {
+            if (feature.properties['Site Size (Hectares)'] >= 0.100000 && feature.properties['Site Size (Hectares)'] <= 1.000000 ) {
+                return {
+                pane: 'pane_Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(179,93,142,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(242,125,191,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 1.000000 && feature.properties['Site Size (Hectares)'] <= 5.000000 ) {
+                return {
+                pane: 'pane_Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6',
+                radius: 5.5,
+                opacity: 1,
+                color: 'rgba(179,93,142,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(242,125,191,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 5.000000 && feature.properties['Site Size (Hectares)'] <= 10.000000 ) {
+                return {
+                pane: 'pane_Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6',
+                radius: 9.0,
+                opacity: 1,
+                color: 'rgba(179,93,142,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(242,125,191,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 10.000000 && feature.properties['Site Size (Hectares)'] <= 30.000000 ) {
+                return {
+                pane: 'pane_Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6',
+                radius: 12.5,
+                opacity: 1,
+                color: 'rgba(179,93,142,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(242,125,191,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 30.000000 && feature.properties['Site Size (Hectares)'] <= 245.600000 ) {
+                return {
+                pane: 'pane_Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6',
+                radius: 16.0,
+                opacity: 1,
+                color: 'rgba(179,93,142,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(242,125,191,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6');
+        map.getPane('pane_Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6').style.zIndex = 406;
+        map.getPane('pane_Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6').style['mix-blend-mode'] = 'normal';
+        var layer_Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6 = new L.geoJson(json_Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6',
+            layerName: 'layer_Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6',
+            pane: 'pane_Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6',
+            onEachFeature: pop_Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6);
+        map.addLayer(layer_Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6);
+        function pop_AllVacantandDerelictSites_7(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Local Authority</th>\
+                        <td>' + (feature.properties['Local Authority'] !== null ? autolinker.link(feature.properties['Local Authority'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Site Code</th>\
+                        <td>' + (feature.properties['Site Code'] !== null ? autolinker.link(feature.properties['Site Code'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Site Name (If Supplied)</th>\
+                        <td>' + (feature.properties['Site Name (If Supplied)'] !== null ? autolinker.link(feature.properties['Site Name (If Supplied)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Address (If Supplied)</th>\
+                        <td>' + (feature.properties['Address (If Supplied)'] !== null ? autolinker.link(feature.properties['Address (If Supplied)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">East</th>\
+                        <td>' + (feature.properties['East'] !== null ? autolinker.link(feature.properties['East'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">North</th>\
+                        <td>' + (feature.properties['North'] !== null ? autolinker.link(feature.properties['North'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Site Size (Hectares)</th>\
+                        <td>' + (feature.properties['Site Size (Hectares)'] !== null ? autolinker.link(feature.properties['Site Size (Hectares)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Site Type</th>\
+                        <td>' + (feature.properties['Site Type'] !== null ? autolinker.link(feature.properties['Site Type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Location of Site</th>\
+                        <td>' + (feature.properties['Location of Site'] !== null ? autolinker.link(feature.properties['Location of Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Owner 1</th>\
+                        <td>' + (feature.properties['Owner 1'] !== null ? autolinker.link(feature.properties['Owner 1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Owner 2</th>\
+                        <td>' + (feature.properties['Owner 2'] !== null ? autolinker.link(feature.properties['Owner 2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Period when site became Vacant or Derelict</th>\
+                        <td>' + (feature.properties['Period when site became Vacant or Derelict'] !== null ? autolinker.link(feature.properties['Period when site became Vacant or Derelict'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Previous Use of Site</th>\
+                        <td>' + (feature.properties['Previous Use of Site'] !== null ? autolinker.link(feature.properties['Previous Use of Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Development Potential</th>\
+                        <td>' + (feature.properties['Development Potential'] !== null ? autolinker.link(feature.properties['Development Potential'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Datazone</th>\
+                        <td>' + (feature.properties['Datazone'] !== null ? autolinker.link(feature.properties['Datazone'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_AllVacantandDerelictSites_7_0(feature) {
+            if (feature.properties['Site Size (Hectares)'] >= 0.100000 && feature.properties['Site Size (Hectares)'] <= 1.000000 ) {
+                return {
+                pane: 'pane_AllVacantandDerelictSites_7',
+                radius: 2.8,
+                opacity: 1,
+                color: 'rgba(179,92,21,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,245,240,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 1.000000 && feature.properties['Site Size (Hectares)'] <= 5.000000 ) {
+                return {
+                pane: 'pane_AllVacantandDerelictSites_7',
+                radius: 3.6,
+                opacity: 1,
+                color: 'rgba(179,92,21,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,190,165,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 5.000000 && feature.properties['Site Size (Hectares)'] <= 10.000000 ) {
+                return {
+                pane: 'pane_AllVacantandDerelictSites_7',
+                radius: 4.4,
+                opacity: 1,
+                color: 'rgba(179,92,21,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(252,112,80,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 10.000000 && feature.properties['Site Size (Hectares)'] <= 30.000000 ) {
+                return {
+                pane: 'pane_AllVacantandDerelictSites_7',
+                radius: 5.6,
+                opacity: 1,
+                color: 'rgba(179,92,21,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(212,32,32,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 30.000000 && feature.properties['Site Size (Hectares)'] <= 430.400000 ) {
+                return {
+                pane: 'pane_AllVacantandDerelictSites_7',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(179,92,21,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(103,0,13,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_AllVacantandDerelictSites_7');
+        map.getPane('pane_AllVacantandDerelictSites_7').style.zIndex = 407;
+        map.getPane('pane_AllVacantandDerelictSites_7').style['mix-blend-mode'] = 'normal';
+        var layer_AllVacantandDerelictSites_7 = new L.geoJson(json_AllVacantandDerelictSites_7, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_AllVacantandDerelictSites_7',
+            layerName: 'layer_AllVacantandDerelictSites_7',
+            pane: 'pane_AllVacantandDerelictSites_7',
+            onEachFeature: pop_AllVacantandDerelictSites_7,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_AllVacantandDerelictSites_7_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_AllVacantandDerelictSites_7);
+        map.addLayer(layer_AllVacantandDerelictSites_7);
+        function pop_VacantLandandBuildings_8(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Local Authority'] !== null ? autolinker.link(feature.properties['Local Authority'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site Code'] !== null ? autolinker.link(feature.properties['Site Code'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site Name (If Supplied)'] !== null ? autolinker.link(feature.properties['Site Name (If Supplied)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Address (If Supplied)'] !== null ? autolinker.link(feature.properties['Address (If Supplied)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['East'] !== null ? autolinker.link(feature.properties['East'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['North'] !== null ? autolinker.link(feature.properties['North'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site Size (Hectares)'] !== null ? autolinker.link(feature.properties['Site Size (Hectares)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site Type'] !== null ? autolinker.link(feature.properties['Site Type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Location of Site'] !== null ? autolinker.link(feature.properties['Location of Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Owner 1'] !== null ? autolinker.link(feature.properties['Owner 1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Owner 2'] !== null ? autolinker.link(feature.properties['Owner 2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Period when site became Vacant or Derelict'] !== null ? autolinker.link(feature.properties['Period when site became Vacant or Derelict'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Previous Use of Site'] !== null ? autolinker.link(feature.properties['Previous Use of Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Development Potential'] !== null ? autolinker.link(feature.properties['Development Potential'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Datazone'] !== null ? autolinker.link(feature.properties['Datazone'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_VacantLandandBuildings_8_0(feature) {
+            if (feature.properties['Site Size (Hectares)'] >= 0.100000 && feature.properties['Site Size (Hectares)'] <= 1.000000 ) {
+                return {
+                pane: 'pane_VacantLandandBuildings_8',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,212,22,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 1.000000 && feature.properties['Site Size (Hectares)'] <= 5.000000 ) {
+                return {
+                pane: 'pane_VacantLandandBuildings_8',
+                radius: 5.5,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,212,22,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 5.000000 && feature.properties['Site Size (Hectares)'] <= 10.000000 ) {
+                return {
+                pane: 'pane_VacantLandandBuildings_8',
+                radius: 9.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,212,22,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 10.000000 && feature.properties['Site Size (Hectares)'] <= 30.000000 ) {
+                return {
+                pane: 'pane_VacantLandandBuildings_8',
+                radius: 12.5,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,212,22,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 30.000000 && feature.properties['Site Size (Hectares)'] <= 170.000000 ) {
+                return {
+                pane: 'pane_VacantLandandBuildings_8',
+                radius: 16.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(215,212,22,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_VacantLandandBuildings_8');
+        map.getPane('pane_VacantLandandBuildings_8').style.zIndex = 408;
+        map.getPane('pane_VacantLandandBuildings_8').style['mix-blend-mode'] = 'normal';
+        var layer_VacantLandandBuildings_8 = new L.geoJson(json_VacantLandandBuildings_8, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_VacantLandandBuildings_8',
+            layerName: 'layer_VacantLandandBuildings_8',
+            pane: 'pane_VacantLandandBuildings_8',
+            onEachFeature: pop_VacantLandandBuildings_8,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_VacantLandandBuildings_8_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_VacantLandandBuildings_8);
+        map.addLayer(layer_VacantLandandBuildings_8);
+        function pop_DerelictLand_9(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Local Authority'] !== null ? autolinker.link(feature.properties['Local Authority'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site Code'] !== null ? autolinker.link(feature.properties['Site Code'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site Name (If Supplied)'] !== null ? autolinker.link(feature.properties['Site Name (If Supplied)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Address (If Supplied)'] !== null ? autolinker.link(feature.properties['Address (If Supplied)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['East'] !== null ? autolinker.link(feature.properties['East'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['North'] !== null ? autolinker.link(feature.properties['North'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site Size (Hectares)'] !== null ? autolinker.link(feature.properties['Site Size (Hectares)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site Type'] !== null ? autolinker.link(feature.properties['Site Type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Location of Site'] !== null ? autolinker.link(feature.properties['Location of Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Owner 1'] !== null ? autolinker.link(feature.properties['Owner 1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Owner 2'] !== null ? autolinker.link(feature.properties['Owner 2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Period when site became Vacant or Derelict'] !== null ? autolinker.link(feature.properties['Period when site became Vacant or Derelict'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Previous Use of Site'] !== null ? autolinker.link(feature.properties['Previous Use of Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Development Potential'] !== null ? autolinker.link(feature.properties['Development Potential'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Datazone'] !== null ? autolinker.link(feature.properties['Datazone'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_DerelictLand_9_0(feature) {
+            if (feature.properties['Site Size (Hectares)'] >= 0.100000 && feature.properties['Site Size (Hectares)'] <= 1.000000 ) {
+                return {
+                pane: 'pane_DerelictLand_9',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(77,77,77,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 1.000000 && feature.properties['Site Size (Hectares)'] <= 5.000000 ) {
+                return {
+                pane: 'pane_DerelictLand_9',
+                radius: 5.5,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(77,77,77,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 5.000000 && feature.properties['Site Size (Hectares)'] <= 10.000000 ) {
+                return {
+                pane: 'pane_DerelictLand_9',
+                radius: 9.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(77,77,77,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 10.000000 && feature.properties['Site Size (Hectares)'] <= 30.000000 ) {
+                return {
+                pane: 'pane_DerelictLand_9',
+                radius: 12.5,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(77,77,77,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 30.000000 && feature.properties['Site Size (Hectares)'] <= 430.400000 ) {
+                return {
+                pane: 'pane_DerelictLand_9',
+                radius: 16.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(77,77,77,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_DerelictLand_9');
+        map.getPane('pane_DerelictLand_9').style.zIndex = 409;
+        map.getPane('pane_DerelictLand_9').style['mix-blend-mode'] = 'normal';
+        var layer_DerelictLand_9 = new L.geoJson(json_DerelictLand_9, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_DerelictLand_9',
+            layerName: 'layer_DerelictLand_9',
+            pane: 'pane_DerelictLand_9',
+            onEachFeature: pop_DerelictLand_9,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_DerelictLand_9_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_DerelictLand_9);
+        map.addLayer(layer_DerelictLand_9);
+        function pop_VacantLand_10(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Local Authority'] !== null ? autolinker.link(feature.properties['Local Authority'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site Code'] !== null ? autolinker.link(feature.properties['Site Code'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site Name (If Supplied)'] !== null ? autolinker.link(feature.properties['Site Name (If Supplied)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Address (If Supplied)'] !== null ? autolinker.link(feature.properties['Address (If Supplied)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['East'] !== null ? autolinker.link(feature.properties['East'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['North'] !== null ? autolinker.link(feature.properties['North'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site Size (Hectares)'] !== null ? autolinker.link(feature.properties['Site Size (Hectares)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Site Type'] !== null ? autolinker.link(feature.properties['Site Type'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Location of Site'] !== null ? autolinker.link(feature.properties['Location of Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Owner 1'] !== null ? autolinker.link(feature.properties['Owner 1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Owner 2'] !== null ? autolinker.link(feature.properties['Owner 2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Period when site became Vacant or Derelict'] !== null ? autolinker.link(feature.properties['Period when site became Vacant or Derelict'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Previous Use of Site'] !== null ? autolinker.link(feature.properties['Previous Use of Site'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Development Potential'] !== null ? autolinker.link(feature.properties['Development Potential'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Datazone'] !== null ? autolinker.link(feature.properties['Datazone'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_VacantLand_10_0(feature) {
+            if (feature.properties['Site Size (Hectares)'] >= 0.100000 && feature.properties['Site Size (Hectares)'] <= 1.000000 ) {
+                return {
+                pane: 'pane_VacantLand_10',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(61,128,53,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(101,127,255,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 1.000000 && feature.properties['Site Size (Hectares)'] <= 5.000000 ) {
+                return {
+                pane: 'pane_VacantLand_10',
+                radius: 5.5,
+                opacity: 1,
+                color: 'rgba(61,128,53,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(101,127,255,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 5.000000 && feature.properties['Site Size (Hectares)'] <= 10.000000 ) {
+                return {
+                pane: 'pane_VacantLand_10',
+                radius: 9.0,
+                opacity: 1,
+                color: 'rgba(61,128,53,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(101,127,255,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 10.000000 && feature.properties['Site Size (Hectares)'] <= 30.000000 ) {
+                return {
+                pane: 'pane_VacantLand_10',
+                radius: 12.5,
+                opacity: 1,
+                color: 'rgba(61,128,53,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(101,127,255,1.0)',
+                interactive: true,
+            }
+            }
+            if (feature.properties['Site Size (Hectares)'] >= 30.000000 && feature.properties['Site Size (Hectares)'] <= 22.730000 ) {
+                return {
+                pane: 'pane_VacantLand_10',
+                radius: 16.0,
+                opacity: 1,
+                color: 'rgba(61,128,53,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(101,127,255,1.0)',
+                interactive: true,
+            }
+            }
+        }
+        map.createPane('pane_VacantLand_10');
+        map.getPane('pane_VacantLand_10').style.zIndex = 410;
+        map.getPane('pane_VacantLand_10').style['mix-blend-mode'] = 'normal';
+        var layer_VacantLand_10 = new L.geoJson(json_VacantLand_10, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_VacantLand_10',
+            layerName: 'layer_VacantLand_10',
+            pane: 'pane_VacantLand_10',
+            onEachFeature: pop_VacantLand_10,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_VacantLand_10_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_VacantLand_10);
+        map.addLayer(layer_VacantLand_10);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Vacant Land <br /><table><tr><td style="text-align: center;"><img src="legend/VacantLand_10_0110.png" /></td><td>0.1 - 1 </td></tr><tr><td style="text-align: center;"><img src="legend/VacantLand_10_151.png" /></td><td>1 - 5 </td></tr><tr><td style="text-align: center;"><img src="legend/VacantLand_10_5102.png" /></td><td>5 - 10 </td></tr><tr><td style="text-align: center;"><img src="legend/VacantLand_10_10303.png" /></td><td>10 - 30 </td></tr><tr><td style="text-align: center;"><img src="legend/VacantLand_10_3022734.png" /></td><td>30 - 22.73 </td></tr></table>': layer_VacantLand_10,'Derelict Land <br /><table><tr><td style="text-align: center;"><img src="legend/DerelictLand_9_0110.png" /></td><td>0.1 - 1 </td></tr><tr><td style="text-align: center;"><img src="legend/DerelictLand_9_151.png" /></td><td>1 - 5 </td></tr><tr><td style="text-align: center;"><img src="legend/DerelictLand_9_5102.png" /></td><td>5 - 10 </td></tr><tr><td style="text-align: center;"><img src="legend/DerelictLand_9_10303.png" /></td><td>10 - 30 </td></tr><tr><td style="text-align: center;"><img src="legend/DerelictLand_9_3043044.png" /></td><td>30 - 430.4 </td></tr></table>': layer_DerelictLand_9,'Vacant Land and Buildings <br /><table><tr><td style="text-align: center;"><img src="legend/VacantLandandBuildings_8_0110.png" /></td><td>0.1 - 1 </td></tr><tr><td style="text-align: center;"><img src="legend/VacantLandandBuildings_8_151.png" /></td><td>1 - 5 </td></tr><tr><td style="text-align: center;"><img src="legend/VacantLandandBuildings_8_5102.png" /></td><td>5 - 10 </td></tr><tr><td style="text-align: center;"><img src="legend/VacantLandandBuildings_8_10303.png" /></td><td>10 - 30 </td></tr><tr><td style="text-align: center;"><img src="legend/VacantLandandBuildings_8_301704.png" /></td><td>30 - 170 </td></tr></table>': layer_VacantLandandBuildings_8,'All Vacant and Derelict Sites<br /><table><tr><td style="text-align: center;"><img src="legend/AllVacantandDerelictSites_7_0110.png" /></td><td>0.1 - 1 </td></tr><tr><td style="text-align: center;"><img src="legend/AllVacantandDerelictSites_7_151.png" /></td><td>1 - 5 </td></tr><tr><td style="text-align: center;"><img src="legend/AllVacantandDerelictSites_7_5102.png" /></td><td>5 - 10 </td></tr><tr><td style="text-align: center;"><img src="legend/AllVacantandDerelictSites_7_10303.png" /></td><td>10 - 30 </td></tr><tr><td style="text-align: center;"><img src="legend/AllVacantandDerelictSites_7_3043044.png" /></td><td>30 - 430.4 </td></tr></table>': layer_AllVacantandDerelictSites_7,'Sites in the countryside classified as uneconomic to develop/unknown development potential <br /><table><tr><td style="text-align: center;"><img src="legend/Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6_0110.png" /></td><td>0.1 - 1 </td></tr><tr><td style="text-align: center;"><img src="legend/Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6_151.png" /></td><td>1 - 5 </td></tr><tr><td style="text-align: center;"><img src="legend/Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6_5102.png" /></td><td>5 - 10 </td></tr><tr><td style="text-align: center;"><img src="legend/Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6_10303.png" /></td><td>10 - 30 </td></tr><tr><td style="text-align: center;"><img src="legend/Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6_3024564.png" /></td><td>30 - 245.6 </td></tr></table>': layer_Sitesinthecountrysideclassifiedasuneconomictodevelopunknowndevelopmentpotential_6,'Sites under public ownership<br /><table><tr><td style="text-align: center;"><img src="legend/Sitesunderpublicownership_5_0110.png" /></td><td>0.1 - 1 </td></tr><tr><td style="text-align: center;"><img src="legend/Sitesunderpublicownership_5_151.png" /></td><td>1 - 5 </td></tr><tr><td style="text-align: center;"><img src="legend/Sitesunderpublicownership_5_5102.png" /></td><td>5 - 10 </td></tr><tr><td style="text-align: center;"><img src="legend/Sitesunderpublicownership_5_10303.png" /></td><td>10 - 30 </td></tr><tr><td style="text-align: center;"><img src="legend/Sitesunderpublicownership_5_3078514.png" /></td><td>30 - 78.51 </td></tr></table>': layer_Sitesunderpublicownership_5,'<img src="legend/LocalAuthorityBoundaries_4.png" /> Local Authority Boundaries': layer_LocalAuthorityBoundaries_4,'<img src="legend/ProposedGreencorridors_3.png" /> Proposed Green corridors': layer_ProposedGreencorridors_3,'<img src="legend/MeatMarketCaseStudySite_2.png" /> Meat Market Case Study Site': layer_MeatMarketCaseStudySite_2,'<img src="legend/Siteswithpastmineralactivity_1.png" /> Sites with past mineral activity': layer_Siteswithpastmineralactivity_1,"OSM Standard": layer_OSMStandard_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
